@@ -9,10 +9,11 @@ This repository contains my API testing practice tasks and homework assignments 
 - Work with JSON responses
 - Testing authorization and authentication
 - Basic validations and assertions
-- Practical tasks for QA portfolio
+- SQL queries
 ## Tools & Technologies:
 - Postman
 - REST API
 - JSON
 - HTTP protocols
+- Oracle SQL Developer
 These examples demonstrate my understanding of API testing principles as part of my QA learning journey.
