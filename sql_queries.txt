@@ -1,0 +1,56 @@
+Завдання
+–1. Оберіть усі строки із таблиці OrderDetail, де вартість замовлення більше 50 або кількість замовлень більше 10
+
+SELECT *
+FROM OrderDetail
+WHERE OrderDetail_HeaderID IN (
+SELECT OrderDetail_HeaderID FROM OrderDetail
+GROUP BY OrderDetail_HeaderID
+HAVING SUM( OrderDetail_Quantity*OrderDetail_Price)>50
+)
+OR OrderDetail_Quantity>10;
+
+–2. Виведіть усі унікальні значення записів OrderDetail_ArticleNumber за алфавітним порядком
+
+SELECT DISTINCT OrderDetail_ArticleNumber
+FROM OrderDetail
+ORDER BY OrderDetail_ArticleNumber ASC;
+
+--3. Виберіть замовлення (OrderHeader_Number, OrderHeader_Description), у яких кількість рядків деталей (з таблиці OrderDetail) перевищує 1
+/Питання до аналітика: Кількість рядків деталей -це кількість позицій у замовленні (число рядків у таблиці OrderDetail) чи сума поля OrderDetail_Quantity? Я врахувала , що це  кількість позицій у замовленні /
+
+
+SELECT OH.OrderHeader_Number, OH.OrderHeader_Description
+FROM OrderHeader OH
+JOIN OrderDetail OD
+    ON OH.OrderHeader_ID = OD.OrderDetail_HeaderID
+GROUP BY
+OH.OrderHeader_Number, 
+OH.OrderHeader_Description
+HAVING COUNT(*)>1;
+
+
+--4. Виберіть загальну кількість і суму (як кількість*ціна) для кожної статті (артикула) для всіх замовлень
+
+SELECT OrderDetail_ArticleNumber,
+   	 SUM(OrderDetail_Quantity) AS QUANTITY,
+    	SUM(OrderDetail_Quantity*OrderDetail_Price) AS AMOUNT
+FROM OrderDetail
+GROUP BY OrderDetail_ArticleNumber;
+
+–5 . Напишіть запит для відображення всіх записів полів OrderHeader_Number,  OrderHeader_Description та OrderDetail_ArticleNumber, OrderDetail_Quantity, OrderDetail_Price за умови, що OrderDetail_Quantity  більше 3 та відсортуйте всі записи за збільшенням вартості.
+
+SELECT OH.OrderHeader_Number,
+       OH.OrderHeader_Description,
+       OD.OrderDetail_ArticleNumber,
+       OD.OrderDetail_Quantity,
+       OD.OrderDetail_Price
+FROM OrderHeader OH
+JOIN OrderDetail OD
+    ON OH.OrderHeader_ID = OD.OrderDetail_HeaderID
+    WHERE 
+    OD.OrderDetail_Quantity>3
+ORDER BY 
+OD.OrderDetail_Quantity * OD.OrderDetail_Price ASC;
+
+
