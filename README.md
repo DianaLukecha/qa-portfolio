@@ -7,8 +7,6 @@ This repository contains my API testing practice tasks and homework assignments 
 - Different HTTP methods (GET, POST, PUT, DELETE)
 - Requests with parameters, headers, body
 - Work with JSON responses
-- Testing authorization and authentication
-- Basic validations and assertions
 - SQL queries
 ## Tools & Technologies:
 - Postman
